@@ -4,7 +4,7 @@ exports.up = function(knex, Promise) {
       tbl.increments();
       tbl.string('description', 128).notNullable().unique();
       tbl.string('notes').notNullable();
-      tbl.boolean('flag').notNullable();
+      tbl.boolean('flag').notNullable()
       tbl.integer('project_id').references('id').intable('projects')
   })
 };

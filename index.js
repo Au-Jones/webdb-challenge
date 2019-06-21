@@ -85,7 +85,19 @@ server.delete('/api/projects/:id', async(req, res) => {
     }
 })
 
+server.post('/api/actions', async(req, res) => {
+    try {
+        const [id] = await db('action').insert(req.body)
+        const project = await db('action')
+        .where ({ id })
+        .first();
 
+        res.status(201).json(project);
+    }catch(error) {
+        const message = errors[error.errno] || 'theres an error'
+        res.status(500).json({ message, error})
+    }
+})
 
 const port = process.env.PORT || 5500;
 server.listen(port, () => console.log(`\nRunning on port ${port}\n`))
